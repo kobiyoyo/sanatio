@@ -1,1 +1,1 @@
-json.array! @searches, partial: "searches/search", as: :search
+json.array! @searches, partial: 'searches/search', as: :search
