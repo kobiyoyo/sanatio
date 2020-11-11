@@ -8,7 +8,7 @@ class Search < ApplicationRecord
  
 
     
-	def self.getData
+	  def self.getData
       response = RestClient::Resource.new(@url)
     end
 
