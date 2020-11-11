@@ -13,7 +13,7 @@ gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 
 gem 'bootstrap-sass', '~> 3.4.1'
-#rest client
+# rest client
 gem 'rest-client'
 
 gem 'jquery-rails'

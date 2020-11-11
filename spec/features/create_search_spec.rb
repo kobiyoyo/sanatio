@@ -16,6 +16,6 @@ feature 'create search' do
     fill_in 'Last name', with: 'Adama'
     fill_in 'Url', with: '8returns.com'
     click_on('Search Name')
-    expect(page).to have_content("No Record found")
+    expect(page).to have_content('No Record found')
   end
 end

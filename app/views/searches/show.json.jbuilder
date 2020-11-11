@@ -1,1 +1,1 @@
-json.partial! "searches/search", search: @search
+json.partial! 'searches/search', search: @search
