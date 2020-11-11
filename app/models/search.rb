@@ -13,13 +13,14 @@ class Search < ApplicationRecord
     end
 
     def self.retrieve_results(myParameter)
-      @api_key = "a8a75592573121b4c822a5206e7d3135" #Your Api Key
+      @api_key = "97cabe244c89fb2e16bbf182ee1b7030" #API KEY
       @url = "https://apilayer.net/api/check?access_key=#{@api_key}&email=#{myParameter}"
-      response = Search.getData.get
-      #Error Handling
-      JSON.parse(response) 
-      rescue RestClient::Exception
-      "Api request error" 
+      response = Search.getData.get 
+      begin
+       JSON.parse(response) 
+      rescue RestClient::ExceptionWithResponse => e
+       e.response
+      end
     end
 
 
