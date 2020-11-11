@@ -7,15 +7,19 @@ class Search < ApplicationRecord
     validates :email,presence: { message: "No Record found" },uniqueness: true
  
 
-
+    
 	def self.getData
       response = RestClient::Resource.new(@url)
     end
 
     def self.retrieve_results(myParameter)
-      @url = "https://apilayer.net/api/check?access_key=a8a75592573121b4c822a5206e7d3135&email=#{myParameter}"
+      @api_key = "a8a75592573121b4c822a5206e7d3135" #Your Api Key
+      @url = "https://apilayer.net/api/check?access_key=#{@api_key}&email=#{myParameter}"
       response = Search.getData.get
-      response.code == 200 ? JSON.parse(response) : 'API request failed'
+      #Error Handling
+      JSON.parse(response) 
+      rescue RestClient::Exception
+      "Api request error" 
     end
 
 
@@ -28,20 +32,23 @@ class Search < ApplicationRecord
 
     def self.valid_email(f_name,l_name,url)
       newArr = []
-      email_combination = [
+      email_combinations = [
         "#{f_name}.#{l_name}@#{url}",
         "#{f_name}@#{url}",
         "#{f_name}#{l_name}@#{url}",
         "#{l_name}.#{f_name}@#{url}",
-        "#{f_name[0]}#{l_name}@#{url}",
+        "#{f_name[0]}.#{l_name}@#{url}",
         "#{f_name[0]}#{l_name[0]}@#{url}"
       ]
-      email_combination.each do |email|
+      email_combinations.each do |email|
         email = email.downcase
-        next if Search.check_valid_email(email) == nil
-        newArr << Search.check_valid_email(email)
+        if(!Search.check_valid_email(email).nil?)
+        	newArr << Search.check_valid_email(email)
+        	break
+        end
       end
-      newArr.size >= 1 ?  newArr : nil 
+      
+      newArr.size >= 1 ?  newArr.join(' ') : nil 
     end      
    
 	

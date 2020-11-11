@@ -2,21 +2,12 @@ require 'rest-client'
 
 class User < ApplicationRecord
 
-    # after_initialize(:set_default_email, { if: :new_record? })
+    after_initialize(:set_default_email, { if: :new_record? })
     validates :first_name,presence: true
     validates :last_name,presence: true
     validates :url,presence: true
     validates :email,presence: { message: "No Record found" },uniqueness: true
  
-
-
-
-
-
-
-
-
-
 
 
     def self.getData
@@ -56,7 +47,6 @@ class User < ApplicationRecord
     end      
    
 	def set_default_email
-		  result = User.valid_email(first_name,last_name,url) 
-		  result.size >= 1? self.email = User.valid_email(first_name,last_name,url) : self.email = nil 
-    end
+		  self.email = "#{first_name}.#{last_name}@#{url}"
+  end
 end

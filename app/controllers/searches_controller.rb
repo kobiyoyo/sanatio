@@ -4,6 +4,7 @@ class SearchesController < ApplicationController
   # GET /searches
   # GET /searches.json
   def index
+    @search = Search.new
     @searches = Search.all
   end
 
