@@ -1,23 +1,23 @@
 <br />
 <p align="center">
-  <h1 align="center"> Task APP</h1>
+  <h1 align="center"> Sanatio APP</h1>
  
   <p align="center">
     A Ruby on Rails application
     <br />
     <br />
-    <a href="https://stormy-ravine-81598.herokuapp.com/">View Demo</a>
+    <a href=""></a>
     ·
     <a href="https://github.com/kobiyoyo/sanatio/issues">Report Bug</a>
     ·
     <a href="https://github.com/kobiyoyo/sanatio/issues">Request Feature</a>
   </p>
-  <img src="app/assets/images/screenshot.png" alt="facebook-project">
+  <img src="app/assets/images/screenshot.png" alt="sanatio-project">
 </p>
 
 
 ## Description
-
+This project main objective is to verify existence and validity of the email addresses by passing them into the request URL
 
 
 ## Built With

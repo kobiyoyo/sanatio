@@ -24,13 +24,4 @@ ActiveRecord::Schema.define(version: 2020_11_11_104348) do
     t.string "email"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
-  end
-
 end
