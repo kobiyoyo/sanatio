@@ -8,35 +8,29 @@
     <br />
     <a href="https://stormy-ravine-81598.herokuapp.com/">View Demo</a>
     ·
-    <a href="https://github.com/kobiyoyo/TaskApp/issues">Report Bug</a>
+    <a href="https://github.com/kobiyoyo/sanatio/issues">Report Bug</a>
     ·
-    <a href="https://github.com/kobiyoyo/TaskApp/issues">Request Feature</a>
+    <a href="https://github.com/kobiyoyo/sanatio/issues">Request Feature</a>
   </p>
   <img src="app/assets/images/screenshot.png" alt="facebook-project">
 </p>
 
 
 ## Description
-This is an app that is used for creating different groups and adding your tasks to these groups, the tasks include hours spent, which is a great tool to track and organize your time.
+
 
 
 ## Built With
 - Ruby 
 - Ruby on Rails
 - Bootstrap 4
-- Bullet
 - Rubocop
 - PostgreSQL
 
 ## Features
-- A user can signup/login
-- A user can create, delete, edit groups of tasks.
-- A user can create, delete, edit tasks.
+- A user can perform email validations
+- A user can create, delete emails.
 
-## Future features
-* User can create a timer for each task.
-* Users can add description to task.
-* Logout after 5 minutes of inactivity
 
 
 ## Environment
@@ -90,9 +84,9 @@ $  rails c
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/kobiyoyo/TaskApp/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/kobiyoyo/sanatio/issues).
 
-1. Fork it (https://github.com/kobiyoyo/TaskApp/fork)
+1. Fork it (https://github.com/kobiyoyo/sanatio/fork)
 2. Create your working branch (git checkout -b [choose-a-name])
 3. Commit your changes (git commit -am 'what this commit will fix/add')
 4. Push to the branch (git push origin feature/[feature-name])
