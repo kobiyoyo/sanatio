@@ -1,7 +1,7 @@
 class Search < ApplicationRecord
 
 
-	validates :first_name,presence: true
+	  validates :first_name,presence: true
     validates :last_name,presence: true
     validates :url,presence: true
     validates :email,presence: { message: "No Record found" },uniqueness: true
