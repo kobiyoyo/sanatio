@@ -42,6 +42,6 @@ class Search < ApplicationRecord
       end
     end
 
-    !email_data.size.nil?  ? email_data : nil
+    !email_data.nil?  ? email_data : nil
   end
 end
