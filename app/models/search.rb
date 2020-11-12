@@ -25,7 +25,7 @@ class Search < ApplicationRecord
   end
 
   def self.valid_email(f_name, l_name, url)
-    email_data = []
+    email_data = ''
     email_combinations = [
       "#{f_name}.#{l_name}@#{url}",
       "#{f_name}@#{url}",
@@ -37,11 +37,11 @@ class Search < ApplicationRecord
     email_combinations.each do |email|
       email = email.downcase
       unless Search.check_valid_email(email).nil?
-        email_data << Search.check_valid_email(email)
+        email_data = Search.check_valid_email(email)
         break
       end
     end
 
-    email_data.size >= 1 ? email_data.join(' ') : nil
+    !email_data.size.nil?  ? email_data : nil
   end
 end
