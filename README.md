@@ -48,10 +48,17 @@ $ bundle install --without production
 > Next,create & migrate the database:
 ```
 $ rails db:create
+```
+```
 
 $ rails db:migrate
 ```
+> Create a `.env` file in the root directory
 
+````
+API_KEY = YOUR API KEY GOES HERE
+
+````
 > Run the app in a local server:
 
 ```

@@ -9,7 +9,7 @@ class Search < ApplicationRecord
   end
 
   def self.retrieve_results(my_param)
-    @api_key = '97cabe244c89fb2e16bbf182ee1b7030' # API KEY
+    @api_key = ENV['API_KEY'] # API KEY
     @url = "https://apilayer.net/api/check?access_key=#{@api_key}&email=#{my_param}"
     response = Search.url_link.get
     begin
