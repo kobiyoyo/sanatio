@@ -71,9 +71,9 @@ class Search < ApplicationRecord
             url:url.strip,
             status: :unapproved)
           
-          notification =  nil
+          
         end
-
+        notification =  "No Record Found"
       end
 
     end
