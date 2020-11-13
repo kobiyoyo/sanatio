@@ -1,4 +1,7 @@
 class Search < ApplicationRecord
+  STATUSES = [:approved,:unapproved].freeze
+
+  enum status: STATUSES
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :url, presence: true
@@ -26,6 +29,7 @@ class Search < ApplicationRecord
 
   def self.valid_email(f_name, l_name, url)
     email_data = ''
+    notification = ''
     email_combinations = [
       "#{f_name}.#{l_name}@#{url}",
       "#{f_name}@#{url}",
@@ -36,12 +40,30 @@ class Search < ApplicationRecord
     ]
     email_combinations.each do |email|
       email = email.downcase
-      unless Search.check_valid_email(email).nil?
-        email_data = Search.check_valid_email(email)
-        break
-      end
-    end
 
-    !email_data.nil?  ? email_data : nil
+      if Search.exists?(email:email)
+        
+        if Search.where("email = ? AND status = ?", email , 1)
+             notification =  'Record already found'
+             break
+
+        elsif Search.where("email = ? AND status = ?", email , 2)
+             notification =  'No Record Found'
+        end
+      else
+
+        if(!Search.check_valid_email(email).nil?)
+          Search.create(first_name:f_name, last_name: l_name,email:email,url:url,status: :approved)
+          notification =  'Search was successfully created.'
+          break
+        else
+          Search.create(first_name:f_name, last_name:l_name,email:email,url:url,status: :unapproved)
+          notification =  'No Record Found'
+        end
+
+      end
+
+    end
+    notification
   end
 end
