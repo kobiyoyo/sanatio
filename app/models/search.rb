@@ -29,6 +29,7 @@ class Search < ApplicationRecord
 
   def self.valid_email(f_name, l_name, url)
     email_data = ''
+    notification = ''
     email_combinations = [
       "#{f_name}.#{l_name}@#{url}",
       "#{f_name}@#{url}",
@@ -43,26 +44,25 @@ class Search < ApplicationRecord
       if Search.exists?(email:email)
         
         if Search.where("email = ? AND status = ?", email , 1)
-
-             flash[:notice] = 'Record already found'
-             redirect_to searches_path
+             notification =  'Record already found'
 
         elsif Search.where("email = ? AND status = ?", email , 2)
-
-             flash[:notice] = 'No Record Found'
-             redirect_to searches_path
+             notification =  'No Record Found'
         end
       else
 
         if(!Search.check_valid_email(email).nil?)
-          Search.create(first_name:f_name,last_name:l_name,email:email,status: :approved)
+          @search = Search.create(first_name:f_name,last_name:l_name,email:email,status: :approved)
+          notification =  'Search was successfully created.'
           break
         else
-          Search.create(first_name:f_name,last_name:l_name,email:email,status: :unapproved)
+          @search = Search.create(first_name:f_name,last_name:l_name,email:email,status: :unapproved)
+          notification =  'No Record Found'
         end
 
       end
 
     end
+    notification
   end
 end
