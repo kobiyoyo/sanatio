@@ -7,7 +7,7 @@ feature 'create search' do
     fill_in 'Last name', with: 'Pratt'
     fill_in 'Url', with: '8returns.com'
     click_on('Search Name')
-    expect(page).to have_content('Search was successfully created.')
+    expect(page).to have_content('Search was successfully found.')
   end
 
   scenario 'unsuccessfully check' do
