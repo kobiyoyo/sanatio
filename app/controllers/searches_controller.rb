@@ -17,26 +17,26 @@ class SearchesController < ApplicationController
   # POST /searches.json
   def create
     @search = Search.new(search_params)
-    @search.email = Search.valid_email(@search.first_name, @search.last_name, @search.url)
 
-    respond_to do |format|
+    Search.valid_email(@search.first_name, @search.last_name, @search.url)
+
       if @search.save
-        format.html { redirect_to searches_path, notice: 'Search was successfully created.' }
+
+       redirect_to searches_path notice: 'Search was successfully created.'
 
       else
-        format.html { render :new }
+        flash.now[:danger] = 'No Record found' 
+        render :new 
       end
-    end
+    
   end
 
   # DELETE /searches/1
   # DELETE /searches/1.json
   def destroy
     @search.destroy
-    respond_to do |format|
-      format.html { redirect_to searches_url, notice: 'Search was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      redirect_to searches_url, notice: 'Search was successfully destroyed.' 
+
   end
 
   private

@@ -4,7 +4,7 @@ class CreateSearches < ActiveRecord::Migration[6.0]
       t.string :first_name
       t.string :last_name
       t.string :url
-
+      t.integer :status, null: false
       t.timestamps
     end
   end
