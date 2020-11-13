@@ -1,7 +1,7 @@
 class Search < ApplicationRecord
   STATUSES = [:approved,:unapproved].freeze
 
-  # default_scope { where(status: "approved") }
+  default_scope { where(status: "approved") }
 
   enum status: STATUSES
   validates :first_name, presence: true
@@ -48,7 +48,7 @@ class Search < ApplicationRecord
       if Search.exists?(email:email)
         @email_status = Search.find_by_email(email)
         if @email_status.status ==  "approved" 
-             notification =  'Record already found'
+             notification =  'Search was successfully found.'
              break
         end
         notification =   "No Record Found"
@@ -62,7 +62,7 @@ class Search < ApplicationRecord
             url:url.strip,
             status: :approved)
 
-          notification =  'Search was successfully created.'
+          notification =  'Search was successfully found.'
           break
         else
             Search.create(first_name:f_name.strip,
