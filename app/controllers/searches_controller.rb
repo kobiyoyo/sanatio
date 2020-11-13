@@ -22,10 +22,10 @@ class SearchesController < ApplicationController
 
       if @search.save
 
-       redirect_to searches_path notice: 'Search was successfully created.'
+       redirect_to searches_path notice: Search.valid_email(@search.first_name, @search.last_name, @search.url)
 
       else
-        flash.now[:danger] = 'No Record found' 
+        flash.now[:danger] = Search.valid_email(@search.first_name, @search.last_name, @search.url)
         render :new 
       end
     
