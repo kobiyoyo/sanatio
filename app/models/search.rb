@@ -8,7 +8,7 @@ class Search < ApplicationRecord
   validates :last_name, presence: true
   validates :url, presence: true
   validates :status, presence: true
-  validates :email, presence: { message: 'No Record found' }, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 
   def self.url_link
     RestClient::Resource.new(@url)
