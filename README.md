@@ -76,9 +76,6 @@ $ rspec
 ```sh
 $  rails c
 ```
-## Live version
-
-[Demo](https://stormy-ravine-81598.herokuapp.com/)
 
 ## Authors
 
