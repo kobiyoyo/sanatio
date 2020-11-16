@@ -53,6 +53,8 @@ $ rails db:create
 
 $ rails db:migrate
 ```
+Visit [Mailboxlayer](https://mailboxlayer.com/documentation) to generate an access key.
+
 > Create a `.env` file in the root directory
 
 ````
