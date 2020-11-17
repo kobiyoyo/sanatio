@@ -11,7 +11,6 @@ class Search < ApplicationRecord
   validates :status, presence: true
   validates :email, presence: true, uniqueness: true
 
-
   def self.url_link
     RestClient::Resource.new(@url)
   end
@@ -32,9 +31,8 @@ class Search < ApplicationRecord
     str if check['mx_found'] && check['format_valid'] && check['smtp_check']
   end
 
-
   def self.valid_url?(url)
-    PublicSuffix.valid?(url) 
+    PublicSuffix.valid?(url)
   end
 
   def self.valid_email(f_name, l_name, url)
@@ -47,44 +45,44 @@ class Search < ApplicationRecord
       "#{f_name[0]}.#{l_name}@#{url}",
       "#{f_name[0]}#{l_name[0]}@#{url}"
     ]
-    if  !Search.valid_url?(url) 
-      notification = "Please enter a valid url"
+    if !Search.valid_url?(url)
+      notification = 'Please enter a valid url'
     else
       email_combinations.each do |email|
-      email = email.downcase.strip
- 
-       if Search.exists?(email: email)
-        @email_status = Search.find_by_email(email)
-        if @email_status.status == 'approved'
-          notification = 'Search was successfully found.'
-          break
-        end
-        notification = 'No Record Found'
-       else
+        email = email.downcase.strip
 
-        if !Search.check_valid_email(email).nil?
-
-          Search.create(first_name: f_name.strip,
-                        last_name: l_name.strip,
-                        email: email,
-                        url: url.strip,
-                        status: :approved)
-
-          notification = 'Search was successfully found.'
-          break
+        if Search.exists?(email: email)
+          @email_status = Search.find_by_email(email)
+          if @email_status.status == 'approved'
+            notification = 'Search was successfully found.'
+            break
+          end
+          notification = 'No Record Found'
         else
-          Search.create(first_name: f_name.strip,
-                        last_name: l_name.strip,
-                        email: email,
-                        url: url.strip,
-                        status: :unapproved)
 
+          if !Search.check_valid_email(email).nil?
+
+            Search.create(first_name: f_name.strip,
+                          last_name: l_name.strip,
+                          email: email,
+                          url: url.strip,
+                          status: :approved)
+
+            notification = 'Search was successfully found.'
+            break
+          else
+            Search.create(first_name: f_name.strip,
+                          last_name: l_name.strip,
+                          email: email,
+                          url: url.strip,
+                          status: :unapproved)
+
+          end
+          notification = 'No Record Found'
         end
-        notification = 'No Record Found'
       end
+
     end
-   
-  end   
     notification
   end
 end

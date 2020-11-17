@@ -17,13 +17,13 @@ class SearchesController < ApplicationController
   # POST /searches.json
   def create
     @search = Search.new(search_params)
-    @search.first_name = @search.first_name.gsub(/[^0-9a-z ]/i, '') 
-    @search.last_name = @search.last_name.gsub(/[^0-9a-z ]/i, '') 
-    @search.url =  @search.url.gsub(/[^0-9a-z .]/i, '') 
-    @fill_field = @search.first_name.blank?  && @search.last_name.blank? 
-    if (@fill_field) 
-        flash[:danger] = "Kindly fill in all fields"
-        redirect_to searches_path
+    @search.first_name = @search.first_name.gsub(/[^0-9a-z ]/i, '')
+    @search.last_name = @search.last_name.gsub(/[^0-9a-z ]/i, '')
+    @search.url = @search.url.gsub(/[^0-9a-z .]/i, '')
+    @fill_field = @search.first_name.blank? && @search.last_name.blank?
+    if @fill_field
+      flash[:danger] = 'Kindly fill in all fields'
+      redirect_to searches_path
 
     else
 
