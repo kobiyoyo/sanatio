@@ -1,7 +1,8 @@
 class Search < ApplicationRecord
+  require 'open-uri'
   STATUSES = %i[approved unapproved].freeze
 
-  default_scope { where(status: 'approved') }
+  # default_scope { where(status: 'approved') }
 
   enum status: STATUSES
   validates :first_name, presence: true
@@ -9,6 +10,7 @@ class Search < ApplicationRecord
   validates :url, presence: true
   validates :status, presence: true
   validates :email, presence: true, uniqueness: true
+
 
   def self.url_link
     RestClient::Resource.new(@url)
@@ -30,6 +32,11 @@ class Search < ApplicationRecord
     str if check['mx_found'] && check['format_valid'] && check['smtp_check']
   end
 
+
+  def self.valid_url?(url)
+    PublicSuffix.valid?(url) 
+  end
+
   def self.valid_email(f_name, l_name, url)
     notification = ''
     email_combinations = [
@@ -40,17 +47,20 @@ class Search < ApplicationRecord
       "#{f_name[0]}.#{l_name}@#{url}",
       "#{f_name[0]}#{l_name[0]}@#{url}"
     ]
-    email_combinations.each do |email|
+    if  !Search.valid_url?(url) 
+      notification = "Please enter a valid url"
+    else
+      email_combinations.each do |email|
       email = email.downcase.strip
-
-      if Search.exists?(email: email)
+ 
+       if Search.exists?(email: email)
         @email_status = Search.find_by_email(email)
         if @email_status.status == 'approved'
           notification = 'Search was successfully found.'
           break
         end
         notification = 'No Record Found'
-      else
+       else
 
         if !Search.check_valid_email(email).nil?
 
@@ -73,6 +83,8 @@ class Search < ApplicationRecord
         notification = 'No Record Found'
       end
     end
+   
+  end   
     notification
   end
 end
