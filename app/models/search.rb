@@ -2,7 +2,7 @@ class Search < ApplicationRecord
   require 'open-uri'
   STATUSES = %i[approved unapproved].freeze
 
-  # default_scope { where(status: 'approved') }
+  default_scope { where(status: 'approved') }
 
   enum status: STATUSES
   validates :first_name, presence: true
