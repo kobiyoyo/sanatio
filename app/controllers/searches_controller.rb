@@ -17,16 +17,25 @@ class SearchesController < ApplicationController
   # POST /searches.json
   def create
     @search = Search.new(search_params)
-
-    @result = Search.valid_email(@search.first_name, @search.last_name, @search.url)
-
-    if @result != 'No Record Found'
-      flash[:notice] = Search.valid_email(@search.first_name, @search.last_name, @search.url)
+    @search.first_name = @search.first_name.gsub(/[^0-9a-z ]/i, '')
+    @search.last_name = @search.last_name.gsub(/[^0-9a-z ]/i, '')
+    @search.url = @search.url.gsub(/[^0-9a-z .]/i, '')
+    @fill_field = @search.first_name.blank? && @search.last_name.blank?
+    if @fill_field
+      flash[:danger] = 'Kindly fill in all fields'
       redirect_to searches_path
 
     else
-      flash.now[:danger] = 'No Record Found'
-      render :new
+
+      @result = Search.valid_email(@search.first_name, @search.last_name, @search.url)
+
+      if @result != 'No Record Found'
+        flash[:notice] = Search.valid_email(@search.first_name, @search.last_name, @search.url)
+        redirect_to searches_path
+      else
+        flash.now[:danger] = 'No Record Found'
+        render :new
+      end
     end
   end
 
