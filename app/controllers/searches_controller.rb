@@ -20,11 +20,20 @@ class SearchesController < ApplicationController
     @search.first_name = @search.first_name.gsub(/[^0-9a-z ]/i, '')
     @search.last_name = @search.last_name.gsub(/[^0-9a-z ]/i, '')
     @search.url = @search.url.gsub(/[^0-9a-z .]/i, '')
-    @fill_field = @search.first_name.blank? && @search.last_name.blank?
+    @fill_field = @search.first_name.blank? && (@search.last_name.blank? && @search.url.blank?)
     if @fill_field
       flash[:danger] = 'Kindly fill in all fields'
       redirect_to searches_path
-
+    elsif @search.first_name.blank?
+      flash[:danger] = 'Kindly fill in first name'
+      redirect_to searches_path
+    elsif @search.last_name.blank?
+      flash[:danger] = 'Kindly fill in last name'
+      redirect_to searches_path
+    elsif @search.url.blank?
+      flash[:danger] = 'Kindly fill in url'
+      redirect_to searches_path
+      
     else
 
       @result = Search.valid_email(@search.first_name, @search.last_name, @search.url)
